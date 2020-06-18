@@ -1,10 +1,11 @@
 <template>
-    <div id="app">
+    <div>
         <h1>{{title}}</h1>
         <ul>
-            <book-item v-for="book in books" v-bind:key="book" :book='book'></book-item>
-            <book-form BookForm.@addBook="appendBook"></book-form>
+            <book-item v-for="book in books" v-bind:key="book.id" :book='book'></book-item>
         </ul>
+        <br><hr>
+        <book-form @addBook='appendBook'></book-form>
     </div>
 </template>
 
@@ -13,6 +14,16 @@ import BookItem from './BookItem';
 import BookForm from './BookForm';
 export default {
     name: 'BookList',
+    data() {
+        return {
+            title: "All Books",
+            books: [
+                { title: 'Self-Reliance', author: 'Ralph Waldo Emerson' },
+                { title: 'American Gods', author: 'Neil Gaiman' },
+                { title: 'Amusing Ourselves to Death', author: 'Neil Postman' }
+                ]
+        };
+    },
     components: {
         BookItem,
         BookForm,
@@ -21,21 +32,11 @@ export default {
         appendBook(bookTitle, bookAuthor) {
             this.books.push({ title: bookTitle, author: bookAuthor });
         }
-    },
-    data() {
-        return {
-            title: "All Books",
-            books: [
-                {title: 'Self-Reliance', author: 'Ralph Waldo Emerson'},
-                {title: 'American Gods', author: 'Neil Gaiman'},
-                {title: 'Amusing Ourselves to Death', author: 'Neil Postman'}
-                ]
-        };
     }
-}
+};
 </script>
 
-<style scoped>
+<style>
 h1, h2 {
   font-weight: normal;
 }
